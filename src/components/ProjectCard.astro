@@ -1,0 +1,46 @@
+---
+interface Project {
+  _id: string;
+  title: string;
+  slug: string;
+  thumbnailUrl: string;
+  category?: string;
+  itemSize?: "Small" | "Medium" | "Large";
+}
+
+interface Props {
+  items: Project[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="projects">
+  {items.map(project => (
+ <div class={`project-item ${project.itemSize?.toLowerCase() || "small"}`}>
+      <a href={`/projects/${project.slug}`}>
+        {project.thumbnailUrl && (
+  <img
+    src={project.thumbnailUrl}
+    alt={project.title}
+    width="500"
+    height="500"
+    class="project-thumbnail"
+    loading="lazy"
+  />
+)}
+        <div class="project-overlay">
+          <div class="project-overlay-inner">
+            <h2>
+              {project.title}
+              {project.itemSize && <span> ({project.itemSize})</span>}
+            </h2>
+            {project.category && <span class="category">{project.category}</span>}
+            <a href={`/projects/${project.slug}`}>View Project</a>
+          </div>
+        </div>
+      </a>
+    </div>
+  ))}
+</div>
+ 

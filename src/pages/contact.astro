@@ -1,0 +1,36 @@
+---
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+import { getContactPage } from "../lib/sanityClient";
+import ContactForm from '../components/ContactForm.astro';
+
+const contact = await getContactPage();
+const pageTitle = `William Thomas | Design. Develop. Deliver. Contact Me`;
+
+const url = new URL(Astro.request.url);
+const isSuccess = url.searchParams.has('success');
+const isError = url.searchParams.has('error');
+---
+
+<DefaultLayout title={pageTitle} pageType="contact">
+  <div id="panel-scroll" class="panel-scroll-x snap">
+
+  <section id="contact-intro">
+    <div class="grid full-height center-center">
+    <div class="hero">
+      <h4>Contact</h4>
+      <h1>Design. Develop. Deliver. <span class="colour">Contact me</span></h1>
+      <p> Got a project in mind or just want to say hello? You're in the right place - let's get in touch.</p>
+      <a href="#ready-to-start" class="btn btn-alpha" style="margin-top:20px;">Ready to start <i class="wt-arrow flip-y"></i></a>
+     
+    </div>
+  </section>
+  
+  <section id="ready-to-start">
+    {isSuccess && <p class="alert success">✅ Your message has been sent successfully. Thank you!</p>}
+    {isError && <p class="alert error">⚠️ There was an issue sending your message. Please try again later.</p>}
+  
+      <ContactForm />
+  </section>
+
+  </div>
+</DefaultLayout>

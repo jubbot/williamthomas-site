@@ -1,0 +1,62 @@
+---
+// ControllerTab.astro
+const { pageType } = Astro.props;
+---
+<div class="tab_label preload">
+  
+    {pageType === "projects" && (
+    <>
+      <div class="marker"><span>Projects</span></div>
+      <div class="handle grid center-center">
+        <div class="knobs" id="tab-knobs">
+          <div class="knob"><i class="wt-idea-alt"></i></div>
+        </div>
+      </div>
+    </>
+  )}  
+
+  {pageType === "project" && (
+    <>
+      <div class="marker"><span>Project</span></div>
+      <div class="handle grid center-center">
+        <div class="knobs" id="tab-knobs">
+          <div class="knob active" data-index="0" data-hash="scope">
+            <i class="wt-crosshair"></i>
+            <span>Scope</span>
+          </div>
+          <div class="knob" data-index="1" data-hash="visuals">
+            <i class="wt-eyewatch"></i>
+            <span>Visuals</span>
+          </div>
+          <div class="knob" data-index="2" data-hash="more">
+            <i class="wt-triplecircle1"></i>
+            <span>More</span>
+          </div>
+        </div>
+      </div>
+    </>
+  )}
+
+  {pageType === "404" && (
+    <>
+      <div class="marker"><span>404</span></div>
+      <div class="handle grid center-center">
+        <div class="knobs" id="tab-knobs">
+          <div class="knob"><i class="wt-sad"></i></div>
+        </div>
+      </div>
+    </>
+  )}
+
+  {pageType === "contact" && (
+    <>
+      <div class="marker"><span>Contact</span></div>
+      <div class="handle grid center-center">
+        <div class="knobs" id="tab-knobs">
+          <div class="knob"><i class="wt-powerplug"></i></div>
+        </div>
+      </div>
+    </>
+  )}
+
+</div>

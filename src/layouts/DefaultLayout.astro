@@ -1,0 +1,69 @@
+---
+import "../styles/main.scss";
+import Header from '../components/Header.astro';
+import ControllerTab from '../components/ControllerTab.astro';
+import Meta from '../components/Meta.astro';
+
+const {
+  title = "William Thomas",
+  description,
+} = Astro.props;
+
+const { pageType } = Astro.props;
+---
+
+<html lang="en">
+<head>
+  <Meta title={title} description={description} />
+</head>
+  <body class="default-layout">
+    <header id="layout-header">
+      <Header />
+    </header>
+       <main id="tabset_single" class="project-main">
+        <ControllerTab pageType={pageType} />
+    
+      <div class="panel">
+          <slot />
+      </div>
+      <script type="module">
+        const panel = document.getElementById('panel-scroll');
+        const knobs = document.querySelectorAll('.knob');
+
+        function scrollToIndex(index) {
+          if (!panel) return;
+          const scrollLeft = window.innerWidth * index;
+          panel.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+
+          // Update active class
+          knobs.forEach(k => k.classList.remove('active'));
+          knobs[index]?.classList.add('active');
+
+          // Update URL hash
+          const hash = knobs[index]?.dataset.hash;
+          if (hash) history.replaceState(null, '', `#${hash}`);
+        }
+
+        // Handle knob click
+        knobs.forEach(knob => {
+          knob.addEventListener('click', () => {
+            const index = parseInt(knob.dataset.index);
+            scrollToIndex(index);
+          });
+        });
+
+        // Scroll event to update active knob
+        panel?.addEventListener('scroll', () => {
+          const index = Math.round(panel.scrollLeft / window.innerWidth);
+          knobs.forEach(k => k.classList.remove('active'));
+          knobs[index]?.classList.add('active');
+        });
+
+        // On load: scroll to hash if it exists
+        const initialHash = window.location.hash.replace('#', '');
+        const startIndex = [...knobs].findIndex(knob => knob.dataset.hash === initialHash);
+        if (startIndex >= 0) scrollToIndex(startIndex);
+      </script>
+    </main>
+  </body>
+</html>

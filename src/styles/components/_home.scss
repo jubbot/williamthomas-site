@@ -1,0 +1,237 @@
+@use '../base/variables' as *;
+
+ 
+
+ .hero {
+        @media all and (min-width: 1200px) {
+            h1 {
+                font-size: calc(1rem + 3.8vw);
+                line-height: calc(1rem + 2.5vw);
+            }
+
+            h4 {
+                font-size: calc(1rem + 1vw);
+                line-height: calc(1rem + 1vw);
+                margin-bottom: 30px;
+            }
+
+            p {
+                margin-top: 20px;
+                font-size: calc(1rem + 1.4vw);
+                line-height: calc(1rem + 2vw);
+            }
+        }
+
+        @media all and (max-width: 1200px) {
+            h1 {
+                font-size: calc(1rem + 5vw);
+                line-height: calc(1rem + 5vw);
+            }
+
+            h4 {
+                font-size: calc(1rem + 3vw);
+                line-height: calc(1rem + 3vw);
+            }
+
+            p {
+                font-size: calc(1rem + 2vw);
+                line-height: calc(1rem + 2.5vw);
+            }
+        }
+    }
+
+
+// CONTACT
+#contact-intro {
+    background: rgb(22, 22, 22);
+    overflow: hidden;
+
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &:before {
+        background-image: url('#{$assets-url}/townsville_qld_google_map_2.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center right;
+        opacity: .9;
+    }
+
+    &:after {
+        z-index: 1;
+        background: url('#{$assets-url}/grid.svg');
+        background-size: 500px;
+        opacity: .05;
+    }
+}
+
+#store-intro {
+    background: rgb(22, 22, 22);
+    background: linear-gradient(151deg, rgba(22, 22, 22, 1) 0%, rgba(36, 36, 36, 1) 70%, rgba(19, 19, 19, 1) 100%);
+
+    &:before {
+        background-image: url('#{$assets-url}/bg-grid-grey.svg');
+        background-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: .1;
+        content: '';
+    }
+}
+
+.hero {
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    padding: 10px;
+
+    h1 {
+        font-weight: 400;
+        margin: 0;
+        color: #FFF;
+        & {
+        letter-spacing: 2px;
+        }
+
+        .colour {
+            color: #ff5d24;
+            transition: .3s ease;
+
+            &:hover {
+                color: #ffc08f;
+                text-shadow: 0 0 10px #f3842c;
+            }
+        }
+    }
+
+    h4 {
+        color: #888;
+        font-weight: 200;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    p {
+        line-height: 2.5rem;
+        color: #888;
+        margin: 5px 0;
+    }
+}
+
+.hero {
+    @media all and (min-width: 1200px) {
+        h1 {
+            font-size: calc(1rem + 3.8vw);
+            line-height: calc(1rem + 3.8vw);
+        }
+
+        h4 {
+            font-size: calc(1rem + 1vw);
+            line-height: calc(1rem + 1vw);
+        }
+
+        p {
+            font-size: calc(1rem + 1.4vw);
+            line-height: calc(1rem + 2vw);
+        }
+    }
+
+    @media all and (max-width: 1200px) {
+        h1 {
+            font-size: calc(1rem + 6vw);
+            line-height: calc(1rem + 6vw);
+        }
+
+        h4 {
+            font-size: calc(1rem + 3vw);
+            line-height: calc(1rem + 3vw);
+        }
+
+        p {
+            font-size: calc(1rem + 2vw);
+            line-height: calc(1rem + 2.5vw);
+        }
+    }
+}
+
+#contact-intro {
+    background: rgb(22, 22, 22);
+}
+
+ 
+.point-to-section {
+    position: absolute;
+    z-index: 5;
+    bottom: 0;
+    width: 100%;
+&.dark a {
+    background: #111;
+    color: #888;
+    &:hover {color: #CCC;}
+}
+&.light a { 
+    background: #FFF;
+    color: #333;
+    border:1px solid #222;
+    &:hover {color: #000;}
+}
+    a {
+        padding: 10px 20px 0 20px;
+        font-size: 1.5rem;
+        position: relative;
+        z-index: 2;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        border-radius: 3px 3px 0 0;
+        transition: .3s;
+
+}
+    a {
+      
+        padding: 10px 20px 0 20px;
+        
+        font-size: 1.5rem;
+        position: relative;
+        z-index: 2;
+        text-transform: uppercase;
+      
+      
+        display: flex;
+        align-items: center;
+        border-radius: 3px 3px 0 0;
+        transition: .3s;
+
+       
+
+        &:before {
+            width: 5px;
+            height: 15px;
+            content: '';
+            background: #ff5d24;
+            display: inline-block;
+            transform: skew(-5deg);
+            margin-right: 10px;
+        }
+
+        &:hover:before {
+            transform: skew(-25deg);
+        }
+    }
+
+    &:before, &:after {
+        position: absolute;
+        content: '';
+        width: 100%;
+    }
+ 
+}

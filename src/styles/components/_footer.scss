@@ -1,0 +1,95 @@
+footer {
+    background: rgb(24, 24, 24);
+    background: linear-gradient(34deg, rgba(24, 24, 24, 1) 0%, rgba(52, 52, 52, 1) 100%);
+    color: #777;
+    padding: 20px;
+    width: calc(100% - 40px);
+    & {
+    flex-shrink: 0;
+    }
+
+    .static-9 {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    a, button {
+        color: #777;
+    }
+
+    a:hover, button:hover {
+        color: #999;
+    }
+
+    h4 {
+        padding: 0;
+        color: #CCC;
+        font-weight: 400;
+        font-size: 18pt;
+    }
+
+    h4, .payment-types a {
+        text-transform: uppercase;
+    }
+
+    .payment-types {
+        a {
+            font-size: 15pt;
+            margin-right: 5px;
+
+            b {
+                font-weight: 500;
+                transition: .3s linear;
+            }
+        }
+
+        .paypal:hover {
+            color: #3852b3;
+
+            b {
+                color: #4293d0;
+            }
+        }
+
+        .afterpay:hover {
+            color: #a9efd8;
+
+            b {
+                color: #86c2ae;
+            }
+        }
+
+        .payid:hover {
+            color: #FF5D24;
+
+            b {
+                color: #f77d52;
+            }
+        }
+    }
+}
+
+.credit {
+    font-size: 13pt;
+    padding-top: 3px;
+
+    span:after {
+        width: 1px;
+        background: #777;
+        content: '';
+        display: inline-block;
+        height: 10px;
+        transform: skewX(-35deg);
+        margin: 0 5px 0 10px;
+    }
+
+    span:last-child::after {
+        display: none;
+    }
+
+    button {
+        border: 0;
+        background: none;
+        font-size: 13pt;
+    }
+}

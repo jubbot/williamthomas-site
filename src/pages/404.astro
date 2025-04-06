@@ -1,0 +1,111 @@
+---
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+import { getAllProjects } from "../lib/sanityClient";
+
+const pageTitle = `William Thomas | Page not found`;
+
+// Get suggested projects (fallback-safe)
+const projects = await getAllProjects();
+const suggested = Array.isArray(projects) ? projects.slice(0, 3) : [];
+---
+
+<DefaultLayout title={pageTitle} pageType="404">
+  <section>
+    <div class="grid full-height center-center">
+      <div class="text-center">
+        <h1>Page not found</h1>
+        <p>Sorry, the page or project you're looking for doesn't exist.</p>
+       
+      </div>
+    </div>
+  </section>
+
+  {suggested.length > 0 && (
+    <section class="suggested-projects">
+      <div class="container">
+        <h2>Suggested Projects</h2>
+        <div class="grid project-grid">
+          {suggested.map(project => (
+            <a
+              class="project-card"
+              href={`/projects/${project.slug.current || project.slug}`}
+            >
+              {project.thumbnailUrl && (
+                <img
+                  src={project.thumbnailUrl}
+                  alt={project.title}
+                  loading="lazy"
+                />
+              )}
+              <h3>{project.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</DefaultLayout>
+
+<style>
+  .suggested-projects {
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+  }
+
+  .suggested-projects h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .project-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .project-card h3 {
+    margin: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .btn-alpha {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: #ff5d24;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .btn-alpha:hover {
+    background: #e04c1f;
+  }
+</style>

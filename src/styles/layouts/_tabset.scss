@@ -1,0 +1,667 @@
+@use '../base/variables' as *;
+
+@keyframes tilt-up-down {
+    0% {
+        transform: translateY(0);
+    }
+    15% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(0px);
+    }
+    80% {
+        transform: translateY(-3px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+// TABSET 2.0
+#frontpage {
+    header nav label a {
+        pointer-events: none;
+    }
+}
+
+@media all and (min-width: 768px) {
+    #tab1:checked ~ header nav .nav-item:nth-child(1) a,
+    #tab2:checked ~ header nav .nav-item:nth-child(2) a,
+    #tab3:checked ~ header nav .nav-item:nth-child(3) a {
+        color: $colour2;
+        opacity: 1;
+    }
+
+    header, #tabset, #tabset_single {
+        z-index: 2;
+    }
+
+    #tabset_single {
+        position: relative;
+        display: flex;
+        height: 100%;
+        & {
+        z-index: 5;
+        }
+
+        .tab {
+            width: calc(100% - 80px);
+        }
+        .panel .panel-scroll {
+            visibility: visible;
+            width: 100%;
+        }
+        .knob {
+            opacity: .5;
+            padding:10px 0;
+            text-align: center;
+          
+            cursor: pointer;
+            &:active {transform: scale(90%);}
+            &.active {
+            &:active {transform: scale(100%);}   
+            opacity: 1;
+                i {color: $colour2;}
+            }
+          
+            i {animation: none;}
+            span {width:100%; display:block; text-transform: uppercase;}
+            &:last-child .wt-triplecircle1 {
+                display: flex;
+                transform: rotate(90deg); // rotate the icon
+            }
+        }
+        .tab_label:before {
+            background: $tab_background;
+        }
+        .tab_label {
+            cursor: auto;
+        }
+        .panel {
+            pointer-events: auto;
+        }
+    }
+
+    #tabset {
+        .panel-scroll {
+            pointer-events: none;
+        }
+        .handle {
+            align-items: center;
+        }
+    }
+
+    #tabset, #tabset_single {
+        height: calc(100% - 95px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    #tabset .tab_label:hover .knob {
+        animation: tilt-up-down 1.3s infinite;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1),
+    #tab2:checked ~ #tabset .tab:nth-child(2),
+    #tab3:checked ~ #tabset .tab:nth-child(3) {
+        width: calc(100% - (80px * 2));
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .panel-scroll,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .panel-scroll,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .panel-scroll {
+        pointer-events: auto;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .panel,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .panel,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .panel {
+        visibility: visible;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .knob,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .knob,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .knob {
+        opacity: 1;
+        animation: none;
+        i {
+            color: $colour2;
+            animation: none;
+        }
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .tab_label,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .tab_label,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .tab_label {
+        cursor: auto;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .tab_label:before,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .tab_label:before,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .tab_label:before {
+        background: $tab_background;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .panel-scroll {
+        transform: translateX(0);
+    }
+
+    #tab3:checked ~ #tabset .tab:nth-child(1) .panel-scroll {
+        transform: translateX(-100%);
+    }
+
+    #tab2:checked ~ #tabset .tab:nth-child(1) .panel-scroll,
+    #tab3:checked ~ #tabset .tab:nth-child(2) .panel-scroll {
+        transform: translateX(-100%);
+    }
+
+    .tab, .panel-scroll, .knob {
+        transition: .3s;
+    }
+
+    .tab {
+        position: relative;
+        display: flex;
+        width: 80px;
+        height: 100%;
+    }
+
+    .tab:before, #tabset_single:before {
+        position: absolute;
+        content: '';
+        right: 7px;
+        top: -4px;
+        width: 1px;
+        height: 50px;
+        background: $tab_clip_path_bg;
+        z-index: 1;
+        transform: rotate(-35deg);
+    }
+
+    .tab:after, #tabset_single:after {
+        background: $tab_clip_path_bg;
+        height: 1px;
+        right: 21px;
+        left: 80px;
+        content: '';
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+    .panel {
+        width: calc(100% - 80px);
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        clip-path: polygon(calc(100% - 22px) 0, 100% calc(0% + 32px), 100% 100%, 0 100%, 0 0);
+
+        &:after {
+            width: 10px;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(19, 19, 19, 0) 100%);
+            z-index: 10;
+            height: 100%;
+            left: 0;
+            top: 0;
+            content: '';
+            position: absolute;
+        }
+        .panel-scroll-x {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            height:100%;
+            width: 100%;
+            scrollbar-width: none;    // Firefox
+            -ms-overflow-style: none; // IE 10+
+            &::-webkit-scrollbar {
+                display: none; // Safari and Chrome
+            }
+            section {
+                flex: 0 0 100%;
+                height: 100%;
+                overflow-y: auto;
+                scroll-snap-align: start;
+                scroll-behavior: smooth;
+                overscroll-behavior: contain; // Prevent scroll bleed to outer container
+            }
+
+        }
+        .panel-scroll {
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            width: calc(100vw - (80px * 3));
+            height: 100%;
+
+            &.push {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    .tab_label {
+        position: relative;
+        z-index: 2;
+        width: 80px;
+        height: 100%;
+        display: block;
+        cursor: pointer;
+        border-right: 1px solid $tab_clip_path_bg;
+        clip-path: polygon(
+            calc(0% + 15px) calc(0% + 30px),
+            calc(0% + 25px) 0,
+            100% 0,
+            100% 100%,
+            0 100%,
+            0 calc(0% + 30px)
+        );
+        background: $tab_clip_path_bg;
+        margin-left: -1px;
+
+        &:before {
+            clip-path: polygon(
+                calc(0% + 22px) calc(0% + 32px),
+                calc(0% + 32px) calc(0% + 1px),
+                calc(100% - 0px) calc(0% + 1px),
+                100% 100%,
+                calc(0% + 1px) 100%,
+                calc(0% + 1px) calc(0% + 32px)
+            );
+            background: $tab_background;
+            height: 100%;
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        &:hover:before {
+            background: $tab_background_solid;
+            background: $tab_background_hover;
+        }
+
+        &:hover .knob i {
+            animation: pulse 2s infinite;
+            animation-timing-function: ease-out;
+        }
+
+        &:hover .knob {
+            opacity: 1;
+        }
+
+        form {
+            display: none;
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            color: #222;
+        }
+        50% {
+            color: $colour2;
+        }
+        100% {
+            color: #222;
+        }
+    }
+
+    .marker, .handle {
+        position: relative;
+        z-index: 1;
+    }
+
+    .marker {
+        height: 50px;
+        padding-left: 28px;
+        text-align: center;
+
+        span {
+            text-transform: uppercase;
+            font-size: 9pt;
+            font-weight: 400;
+        }
+
+        a {
+            color: #333;
+        }
+    }
+
+    .handle {
+        height: calc(100% - 50px);
+        display: flex;
+        justify-content: center;
+    }
+
+    .knob {
+        position: relative;
+        opacity: .5;
+
+        i {
+            font-size: 30pt;
+        }
+
+        a {
+            display: block;
+            & {
+            text-align: center;
+            }
+
+            .cart {
+                text-transform: uppercase;
+                font-size: 9pt;
+                color: #333;
+            }
+
+            .cart-count {
+                position: absolute;
+                top: 20px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                font-size: 13pt;
+                font-weight: 500;
+                color: #ff5d24;
+                font-family: 'Teko';
+            }
+        }
+    }
+
+    .social {
+        position: absolute;
+        border-top: 1px solid $tab_clip_path_bg;
+        background: #FFF;
+        bottom: 0;
+        z-index: 1;
+        left: 1px;
+        right: 1px;
+
+        input[type='checkbox']:checked ~ label + .social_list {
+            max-height: 300px;
+        }
+
+        input[type='checkbox']:checked ~ label img {
+            animation: none;
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        .social_list {
+            overflow: hidden;
+            max-height: 0;
+            transition: .3s linear;
+        }
+
+        img {
+            opacity: .7;
+            cursor: pointer;
+            animation: pulse_b 3s infinite;
+        }
+
+        a {
+            display: block;
+            color: #333;
+            font-size: 20pt;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            opacity: .5;
+        }
+
+        a:last-child {
+            margin-bottom: 0;
+        }
+
+        a:hover {
+            color: #333;
+            opacity: 1;
+        }
+    }
+
+    @keyframes pulse_b {
+        0% {
+            filter: grayscale(50%) blur(5px);
+        }
+        50% {
+            filter: grayscale(50%) blur(2px);
+        }
+        100% {
+            filter: grayscale(50%) blur(5px);
+        }
+    }
+
+    .marker-link {
+        display: none;
+    }
+}
+
+@media all and (max-width: 768px) {
+    #tab1:checked ~ #tabset .tab:nth-child(1) .panel,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .panel,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .panel {
+        display: block;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .panel-scroll,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .panel-scroll,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .panel-scroll {
+        pointer-events: auto;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1),
+    #tab2:checked ~ #tabset .tab:nth-child(2),
+    #tab3:checked ~ #tabset .tab:nth-child(3) {
+        height: calc(100% - 141px);
+        z-index: 5;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .marker,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .marker,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .marker {
+        opacity: 1;
+    }
+
+    #tab1:checked ~ #tabset .tab:nth-child(1) .knob,
+    #tab2:checked ~ #tabset .tab:nth-child(2) .knob,
+    #tab3:checked ~ #tabset .tab:nth-child(3) .knob {
+        opacity: 1;
+        i {
+            color: #ff5d24;
+            animation: none;
+        }
+    }
+
+    #tabset {
+        margin-top: 61px;
+        height: calc(100% - 60px);
+        position: relative;
+        z-index: 5;
+        & {
+        overflow: hidden;
+        }
+
+        .tab {
+            & {
+            margin-top: -1px;
+            }
+
+            .panel {
+                height: calc(100% - 72px);
+                overflow: hidden;
+            }
+
+            .panel-scroll {
+                height: 100%;
+                overflow-y: auto;
+                pointer-events: none;
+            }
+
+            .full-height {
+                height: 100%;
+            }
+        }
+
+        .tab .panel {
+            display: none;
+        }
+
+        .tab, .tab_label {
+            width: 100%;
+        }
+
+        .tab_label {
+            background: #FFF;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            display: flex;
+            height: 50px;
+            flex-wrap: wrap;
+            padding: 10px;
+            align-items: center;
+            position: relative;
+            & {
+            z-index: 5;
+            }
+
+            .knob {
+                transition: .3s ease;
+            }
+
+            .marker {
+                width: calc(100% - 100px);
+                text-transform: uppercase;
+                font-size: 1.5rem;
+                & {
+                opacity: .5;
+                }
+
+                .marker-title {
+                    display: none;
+                }
+
+                span {
+                    padding: 10px;
+                }
+            }
+
+            .handle {
+                width: 100px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                i {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .social {
+                display: none;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 768px) {
+    #tabset_single {
+        margin-top: 60px;
+        height: calc(100% - 60px);
+        overflow: hidden;
+        position: relative;
+        & {
+        z-index: 5;
+        }
+
+        .panel {
+            width: 100%;
+            height: calc(100% - 60px);
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+             
+        }
+
+        .panel-scroll {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab_label {
+            display: flex;
+            flex-wrap: wrap;
+            background: #FFF;
+            border-bottom: 1px solid #333;
+            width: 100%;
+            padding: 10px;
+            align-items: flex-start;
+            overflow: hidden;
+            & {
+            height: 30px;
+            }
+
+            .marker-link:last-child {
+                padding-right: 10px;
+            }
+
+            .marker {
+                width: calc(100% - 60px);
+                font-family: 'Teko';
+                font-size: 16pt;
+                text-transform: uppercase;
+                order: 2;
+                color: #555;
+                white-space: nowrap;
+                overflow: auto;
+
+                a {
+                    position: relative;
+                    display: inline-block;
+                    color: #555;
+
+                    &:after {
+                        width: 2px;
+                        margin: 0 5px 0 8px;
+                        height: 15px;
+                        content: '';
+                        background: #ff5d24;
+                        display: inline-block;
+                    }
+                }
+            }
+
+            .handle {
+                width: 40px;
+                text-align: center;
+                font-size: 20pt;
+                padding: 0 10px;
+                order: 1;
+                color: #ff5d24;
+            }
+
+            .knob .counter {
+                display: none;
+            }
+
+            .social, .marker-title {
+                display: none;
+            }
+        }
+    }
+}
+
+.knob .counter {
+    margin: 10px 0;
+    color: #888;
+    font-size: 13pt;
+    line-height: 13pt;
+
+    span {
+        padding: 0 2px;
+    }
+}

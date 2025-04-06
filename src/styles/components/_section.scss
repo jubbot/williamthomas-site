@@ -1,0 +1,83 @@
+
+ // SECTION
+ .document-layout {
+    
+     section {
+         border-bottom:1px solid #333;
+         margin-bottom:20px;
+         padding:20px 0;
+         position: relative;
+         &:last-child {border-bottom:none;}
+         &:last-child:after {display:none;}
+         &:after {
+          bottom:0; right:0;
+         display:block;
+         position: absolute;
+         content:'';
+         width:100px;
+         height:5px;
+         background:#333;
+         }
+         h2 {
+             text-transform: uppercase;
+             font-weight: 400;
+         }
+          h3 {
+             text-transform: uppercase;
+             font-weight: 500;
+         }
+         p {
+             font-size:1.3rem;
+             padding:0;
+             margin:5px 0;
+             letter-spacing: 1.3px;
+         }
+         a {color:#ff5d24; font-weight: 400; &:hover {color:#f3842c;}}
+        b { font-weight:400; }
+         li {
+               font-size:1.3rem;
+         }
+         ul {
+             margin-left:20px;
+             padding:0;
+         }
+     }
+ }
+ 
+ // Tablet of Content 
+ .table-of-content {
+     padding:20px;
+     position:relative;
+     margin:20px 10px;
+     background:#FFF;
+     &:before {
+    content:'';
+        background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(84,84,84,.5) 100%);
+         top:-2px; bottom:-2px;
+         left:-2px; right:-2px;
+         z-index:-1;
+         display:block;
+         position: absolute;
+     }
+     
+     h2 {
+         font-weight: 400;
+         text-transform: uppercase;
+         
+     }
+     ul {
+         padding:0px;
+         margin:0;
+         list-style: none;
+     }
+     li {
+         padding:5px;
+     }
+     a {
+         color:#999;
+         font-size:16pt;
+     &:hover {color:#222;}
+         
+     }
+ }

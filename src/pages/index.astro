@@ -1,0 +1,11 @@
+---
+import HomeLayout from "../layouts/HomeLayout.astro";
+import { getHomePage } from "../lib/sanityClient";
+
+const home = await getHomePage();
+---
+
+<HomeLayout>
+  <h1>{home.heading}</h1>
+  <p>{home.subtext}</p>
+</HomeLayout>

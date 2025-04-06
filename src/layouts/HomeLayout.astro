@@ -1,0 +1,114 @@
+---
+import "../styles/main.scss";
+import { getAllProjects } from '../lib/sanityClient';
+import Header from '../components/Header.astro';
+import ProjectItems from '../components/ProjectCard.astro';
+
+// 👇 Async fetch from Sanity
+const realProjects = await getAllProjects();
+
+// Dummy image placeholders
+const placeholderImages = [
+  "product-image-placeholder-1.jpg",
+  "product-image-placeholder-2.jpg",
+  "product-image-placeholder-3.jpg",
+  "product-image-placeholder-4.jpg",
+  "product-image-placeholder-5.jpg",
+  "product-image-placeholder-6.jpg",
+  "product-image-placeholder-7.jpg",
+  "product-image-placeholder-8.jpg",
+  "product-image-placeholder-9.jpg",
+  "product-image-placeholder-10.jpg",
+];
+
+// Generate 20 dummy projects
+const dummyProjects = Array.from({ length: 20 }, (_, i) => ({
+  _id: `dummy-${i + 1}`,
+  title: `Dummy Project ${i + 1}`,
+  slug: `dummy-project-${i + 1}`,
+  thumbnailUrl: `/images/${placeholderImages[i % placeholderImages.length]}`,
+  category: i % 2 === 0 ? 'Design' : 'Development',
+  itemSize: ['Small', 'Medium', 'Large'][i % 3],
+}));
+
+// Combine both real and dummy
+const allProjects = [...realProjects.map(project => ({
+  ...project,
+  category: project.category || 'Featured',
+  itemSize: project.itemSize || 'Large', // default for missing
+})), ...dummyProjects];
+---
+
+<html lang="en">
+  <head>
+    <title>William Thomas | Showcasing my projects and skills</title>
+    <description>Your site description</description>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+  <body id="frontpage">
+  <input type="radio" name="tabset" id="tab1" style={{ display: "none" }} checked />
+  <input type="radio" name="tabset" id="tab2" style={{ display: "none" }} />
+  <input type="radio" name="tabset" id="tab3" style={{ display: "none" }} />
+
+  <header id="layout-header">
+    <Header />
+  </header>
+
+  <main id="tabset" class="grid">
+    <div id="tab_1" class="tab">
+      <label for="tab1" class="tab_label">
+        <div class="marker"><span>Project</span></div>
+        <div class="handle">
+          <div class="knob"><i class="wt-idea" /></div>
+        </div>
+      </label>
+      <div class="panel">
+        <div id="panel-scroll1" class="panel-scroll">
+          <ProjectItems items={allProjects} />
+        </div>
+      </div>
+    </div>
+
+    {/* Store Tab */}
+    <div id="tab_2" class="tab">
+      <label for="tab2" class="tab_label">
+        <div class="marker"><span>Store</span></div>
+        <div class="handle"><div class="knob"><i class="wt-cartcontent" /></div></div>
+      </label>
+      <div class="panel"><div class="panel-scroll"></div></div>
+    </div>
+
+    {/* Contact Tab */}
+    <div id="tab_3" class="tab">
+      <label for="tab3" class="tab_label">
+        <div class="marker"><span>Contact</span></div>
+        <div class="handle preload">
+          <div class="knob"><i class="wt-powerplug" /></div>
+          <div class="social"></div>
+        </div>
+      </label>
+      <div class="panel">
+        <div class="panel-scroll snap">
+          <section id="contact-intro" class="full-height grid center-center">
+            <div class="hero">
+              <h4>Contact</h4>
+              <h1>Let's grab a virtual coffee or <a href="#contact-form" class="colour">drop a line</a></h1>
+              <p>Whether you have a project you want to work on together or just want to have a chat, you are in the right place: let's get in touch.</p>
+            </div>
+            <div class="point-to-section">
+              <a href="#contact-form" title="Navigate to next section">Explore</a>
+            </div>
+          </section>
+          <section id="contact-form" class="grid full-height">
+            <span class="scrolltotop s-hide"><button id="scrollToTopBtn2">Return to Top</button></span>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+ </body>
+</html>

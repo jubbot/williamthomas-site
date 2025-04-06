@@ -1,0 +1,101 @@
+---
+const localTime = new Date().toLocaleTimeString([], {
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+const currentPath = Astro.url.pathname;
+---
+
+<input type="checkbox" name="webctl" id="webctl" style="display: none;" />
+<label class="webctl hidden-mb" for="webctl">
+  <span class="wt-trlarge"></span>
+</label>
+
+<!-- Topbar Navigation -->
+<div class="topbar grid">
+  <div class="cell">
+    <div class="top-nav grid left">
+      <div class="item">
+        Based in <a href="/" title="Based in Townsville, Australia">Townsville, Australia</a>
+      </div>
+      <div class="item">
+        Local time <a href="/" title={`Local time is ${localTime}`}>{localTime}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="top-nav grid right">
+      <div class="item">
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="This web design by William Thomas copyrighted"
+        >
+          <i class="wt-copyright"></i>
+        </a>
+      </div>
+      <div class="item">
+        <button class="mode-toggle" title="Dark mode">
+          <i class="wt-eye"></i>
+        </button>
+      </div>
+      <div class="item">
+        <a href="/" title="William Thomas is online" class="active-indicator"></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Logo & Branding -->
+<div class="btmbar grid">
+  <div class="cell">
+    <div class="identity">
+      <a class="brand" href="/" title="William Thomas | Freelance Creative Developer">
+        <!-- SVG Logo -->
+        <svg
+        clipRule="evenodd"
+        fillRule="evenodd"
+        strokeLinejoin="round"
+        strokeMiterlimit="2"
+        version="1.1"
+        viewBox="0 0 1356 412"
+        xmlSpace="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g transform="scale(2.711 .8235)">
+          <rect width="500" height="500" fill="none" />
+          <g transform="matrix(-.2147 0 0 .81228 309.76 -602.38)">
+            <path
+              d="m1086.3 942.62 209.03 251.29v-438.47h125.66v589.13h-163.1l-171.59-206.3-171.59 206.3h-162.15m-0.948-73.84v-389.64h-149.5v-125.66h427.16v125.66h-152.01v238.93l-125.65 150.71z"
+              fill="#ff5d24"
+              fillRule="nonzero"
+            />
+          </g>
+          <g transform="matrix(8.8772 0 0 29.224 -5713.3 -3875.7)">
+            <path d="m671.8 133.08h1.092l-1.2 7.512h-1.5l-0.84-5.64-0.828 5.64h-1.5l-1.2-7.512h1.116l0.84 6.528 0.972-6.528h1.2l0.972 6.528 0.876-6.528zm2.532 0h1.08v7.512h-1.08v-7.512zm4.104 6.636h1.86v0.876h-2.94v-7.512h1.08v6.636zm4.212 0h1.86v0.876h-2.94v-7.512h1.08v6.636zm3.228-6.636h1.08v7.512h-1.08v-7.512zm5.784 7.512-0.3-1.74h-1.584l-0.276 1.74h-1.08l1.332-7.512h1.572l1.428 7.512h-1.092zm-1.752-2.616h1.308l-0.684-3.96-0.624 3.96zm5.16 2.616h-0.948v-7.512h1.188l1.284 4.656 1.284-4.656h1.188v7.512h-0.948v-5.496l-1.032 3.864h-0.984l-1.032-3.852v5.484zm-24.636 0.988v0.914h-1.315v6.922h-1.126v-6.922h-1.315v-0.914h3.756zm4.13 0h1.127v7.836h-1.127v-3.442h-1.665v3.442h-1.126v-7.836h1.126v3.48h1.665v-3.48zm4.169 0h1.389c0.776 0 1.164 0.367 1.164 1.102v5.633c0 0.734-0.388 1.101-1.164 1.101h-1.389c-0.785 0-1.177-0.367-1.177-1.101v-5.633c0-0.735 0.392-1.102 1.177-1.102zm1.427 6.559v-5.282c0-0.15-0.026-0.248-0.076-0.294s-0.15-0.069-0.3-0.069h-0.726c-0.15 0-0.248 0.023-0.294 0.069s-0.069 0.144-0.069 0.294v5.282c0 0.15 0.023 0.249 0.069 0.294 0.046 0.046 0.144 0.069 0.294 0.069h0.726c0.15 0 0.25-0.023 0.3-0.069 0.05-0.045 0.076-0.144 0.076-0.294zm3.993 1.277h-0.989v-7.836h1.239l1.339 4.857 1.34-4.857h1.239v7.836h-0.989v-5.733l-1.077 4.031h-1.026l-1.076-4.018v5.72zm8.974 0-0.312-1.815h-1.653l-0.288 1.815h-1.126l1.389-7.836h1.64l1.49 7.836h-1.14zm-1.827-2.729h1.364l-0.713-4.13-0.651 4.13zm6.647 1.452v-1.915c0-0.15-0.023-0.248-0.069-0.294s-0.144-0.069-0.294-0.069h-0.927c-0.759 0-1.139-0.371-1.139-1.114v-2.065c0-0.735 0.388-1.102 1.164-1.102h1.227c0.776 0 1.164 0.367 1.164 1.102v1.151h-1.139v-0.976c0-0.15-0.025-0.248-0.075-0.294s-0.15-0.069-0.3-0.069h-0.526c-0.15 0-0.25 0.023-0.301 0.069-0.05 0.046-0.075 0.144-0.075 0.294v1.74c0 0.15 0.025 0.248 0.075 0.294 0.051 0.046 0.151 0.069 0.301 0.069h0.914c0.767 0 1.151 0.367 1.151 1.101v2.254c0 0.734-0.392 1.101-1.176 1.101h-1.215c-0.776 0-1.164-0.367-1.164-1.101v-1.152h1.139v0.976c0 0.15 0.025 0.249 0.076 0.294 0.05 0.046 0.15 0.069 0.3 0.069h0.526c0.15 0 0.248-0.023 0.294-0.069 0.046-0.045 0.069-0.144 0.069-0.294z" />
+          </g>
+        </g>
+      </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="cell grid right">
+    <nav>
+      <label for="tab1" class={`item project1 ${currentPath.startsWith('/projects') ? 'active' : ''}`}>
+        <a href="/projects">Projects</a>
+      </label>
+      <label for="tab2" class={`item project2 ${currentPath.startsWith('/store') ? 'active' : ''}`}>
+        <a href="/store">Store</a>
+      </label>
+      <label for="tab3" class={`item project3 ${currentPath.startsWith('/contact') ? 'active' : ''}`}>
+        <a href="/contact">Contact</a>
+      </label>
+      <div class="item"></div>
+    </nav>
+  </div>
+</div>

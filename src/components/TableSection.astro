@@ -1,0 +1,37 @@
+---
+interface TabItem {
+  _key: string;
+  scope: string;
+  notes?: string;
+}
+
+const {
+  title,
+  items = [],
+}: {
+  title: string;
+  items: TabItem[];
+} = Astro.props;
+---
+
+{items.length > 0 && (
+  <div class="table-section">
+    <h3>{title}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Scope</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map(item => (
+          <tr key={item._key}>
+            <td>{item.scope}</td>
+            <td>{item.notes || '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}

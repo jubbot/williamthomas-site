@@ -1,0 +1,199 @@
+---
+import { toHTML } from '@portabletext/to-html';
+
+interface TabItem {
+  _key: string;
+  scope: string;
+  notes?: string;
+}
+
+interface MaterialGroup {
+  _key: string;
+  materialGroup: string;
+  materialNames: { material: string }[];
+}
+
+const {
+  overview,
+  designWebApp,
+  design3DModeling,
+  designDigitalMedia,
+  technicalCADScopes,
+  technicalWebDevScopes,
+  toolUsedSoftwares,
+  toolsUsedHardware,
+  materialsUsed,
+} = Astro.props;
+
+// Safe fallback defaults
+const safe = <T>(arr: T[] | null | undefined): T[] => Array.isArray(arr) ? arr : [];
+const webApp = safe(designWebApp);
+const modeling = safe(design3DModeling);
+const digital = safe(designDigitalMedia);
+const cad = safe(technicalCADScopes);
+const webDev = safe(technicalWebDevScopes);
+const toolsSoft = safe(toolUsedSoftwares);
+const toolsHard = safe(toolsUsedHardware);
+const materials = safe(materialsUsed);
+
+const overviewHtml = Array.isArray(overview) ? toHTML(overview) : overview;
+---
+
+<div class="project-tabs" data-project-tabs>
+  <div class="tab-buttons">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="design">Design</button>
+    <button data-tab="technical">Technical</button>
+    <button data-tab="tools">Tools</button>
+    <button data-tab="materials">Materials</button>
+  </div>
+
+  <div class="tab-content">
+    <div class="tab-panel active" data-panel="overview">
+        {overviewHtml && (
+            <>
+              <h3>Project Summary</h3>
+              <div class="overview-content" set:html={overviewHtml}></div>
+            </>
+          )}
+    </div>
+
+    <div class="tab-panel" data-panel="design">
+      {webApp.length > 0 && (
+        <div class="table-section">
+          <h3>Web App Design</h3>
+          <table>
+            <tbody>
+              {webApp.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {modeling.length > 0 && (
+        <div class="table-section">
+          <h3>3D Modeling Design</h3>
+          <table>
+            <tbody>
+              {modeling.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {digital.length > 0 && (
+        <div class="table-section">
+          <h3>Digital Design</h3>
+          <table>
+            <tbody>
+              {digital.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+
+    <div class="tab-panel" data-panel="technical">
+      {cad.length > 0 && (
+        <div class="table-section">
+          <h3>Technical - CAD</h3>
+          <table>
+            <tbody>
+              {cad.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {webDev.length > 0 && (
+        <div class="table-section">
+          <h3>Technical - Web Development</h3>
+          <table>
+            <tbody>
+              {webDev.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+
+    <div class="tab-panel" data-panel="tools">
+      {toolsSoft.length > 0 && (
+        <div class="table-section">
+          <h3>Software Tools</h3>
+          <table>
+            <tbody>
+              {toolsSoft.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {toolsHard.length > 0 && (
+        <div class="table-section">
+          <h3>Hardware Tools</h3>
+          <table>
+            <tbody>
+              {toolsHard.map(item => (
+                <tr key={item._key}><td>{item.scope}</td><td>{item.notes || '—'}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+
+    <div class="tab-panel" data-panel="materials">
+      {materials.length > 0 && (
+        <>
+          <h3>Material Used</h3>
+          <table>
+            <tbody>
+              {materials.map(group => (
+                <tr key={group._key}>
+                  <td>{group.materialGroup}</td>
+                  <td>
+                    {group.materialNames.map((item, idx) => (
+                      <span key={idx}>
+                        {item.material}{idx !== group.materialNames.length - 1 && ', '}
+                      </span>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  window.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector('[data-project-tabs]');
+    if (!wrapper) return;
+
+    const buttons = wrapper.querySelectorAll('.tab-buttons button');
+    const panels = wrapper.querySelectorAll('.tab-panel');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tabKey = btn.dataset.tab;
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === tabKey));
+      });
+    });
+  });
+</script>
+
+ 

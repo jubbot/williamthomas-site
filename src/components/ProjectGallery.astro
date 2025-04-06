@@ -1,0 +1,62 @@
+---
+const { project } = Astro.props;
+const gallery = project?.projectImageGallery || [];
+const hasImages = gallery.length > 0;
+---
+
+{hasImages && (
+  <div class="project-gallery" data-gallery>
+    <div class="gallery-main">
+      <img
+        src={gallery[0].url}
+        alt={`${project.title || 'Project'} main image`}
+        id="main-image"
+      />
+    </div>
+
+    {gallery.length > 1 && (
+      <div class="gallery-thumbnails grid center">
+        <div class="inner">
+          {gallery.map((image, index) => (
+            <div
+              class={`thumbnail-item ${index === 0 ? 'active' : ''}`}
+              data-index={index}
+              role="button"
+              aria-label={`View image ${index + 1}`}
+              tabIndex="0"
+            >
+              <img src={image.url} alt={`Thumbnail ${index + 1}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+<script type="module">
+  const gallery = document.querySelector('[data-gallery]');
+  if (gallery) {
+    const mainImg = gallery.querySelector('#main-image');
+    const thumbs = gallery.querySelectorAll('.thumbnail-item');
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const index = parseInt(thumb.dataset.index);
+        const newSrc = thumbs[index]?.querySelector('img')?.src;
+        if (newSrc) mainImg.src = newSrc;
+
+        thumbs.forEach((t) => t.classList.remove('active'));
+        thumb.classList.add('active');
+
+        // Optionally update alt text too
+        mainImg.alt = `Image ${index + 1}`;
+      });
+
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') thumb.click();
+      });
+    });
+  }
+</script>
+ 

@@ -1,0 +1,39 @@
+// FONTS
+$font-teko: 'Teko';
+
+// Image Paths
+$assets-url: "/images";
+
+// GRID
+$gutter: 10px;
+$gutters: 20px;
+
+// Colours
+$colour1: #FFF;
+$colour2: #ff5d24;
+$colour3: #333;
+$colour4: #808080;
+$colour5: #eaeaea;
+$colour6: #efefef;
+
+// MAIN STYLES
+$border-colour1: #333;
+$border-colour2: #CCC;
+$panel-bg: #f8f5f5;
+$detail_header_border_color: #ff5d24;
+$detail_header_bg: #4E4E4E;
+$tab-default: #FFF;
+$tab-text: #333;
+$tab-text-hover: #333;
+$tab-hover: #efefef;
+
+// Tabset
+$tab_clip_path_bg: #333;
+$tab_background_solid: rgb(222, 222, 222);
+$tab_background: linear-gradient(0deg, rgba(235, 235, 235, 1) 0%, rgba(255, 255, 255, 1) 100%);
+$tab_background_hover: linear-gradient(0deg, rgba(222, 222, 222, 1) 50%, rgba(255, 255, 255, 1) 100%);
+$tab_background_animate: linear-gradient(0deg, rgba(222, 222, 222, 1) 50%, rgba(255, 255, 255, 1) 100%);
+
+// Chamfer 
+$cham: 25px;
+$cham-border-thickness: .8px;

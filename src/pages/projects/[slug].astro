@@ -1,0 +1,140 @@
+---
+import { toHTML } from '@portabletext/to-html';
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import ProjectTabs from '../../components/ProjectTabs.astro';
+import VisualGrid from '../../components/VisualGrid.astro';
+import { getAllProjects, getProjectBySlug } from '../../lib/sanityClient';
+
+export async function getStaticPaths() {
+  const projects = await getAllProjects();
+  return projects.map((project) => ({
+    params: { slug: project.slug.current || project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = await getProjectBySlug(slug);
+
+if (!project) {
+  throw new Error(`Project not found for slug: ${slug}`);
+}
+
+// Convert overview Portable Text to HTML
+const overviewHtml = toHTML(project.overview);
+
+const pageTitle = `William Thomas | Project | ${project.title}`;
+
+// Show 404 if not found
+if (!project) {
+  throw Astro.redirect('/404', 302); // or throw new Error("Not found")
+}
+---
+
+<DefaultLayout title={pageTitle} pageType="project">
+  <div id="panel-scroll" class="panel-scroll-x snap">
+    <section id="scope">
+      <div class="grid full-height center-center">
+        <div class="project-page"  style="padding-top: 45px">
+          <span class="category">{project.category}</span>
+          <h1>{project.title}</h1>
+      <ProjectTabs
+      overview={project.overview}
+      designWebApp={project.designWebApp}
+      design3DModeling={project.design3DModeling}
+      designDigitalMedia={project.designDigitalMedia}
+      technicalCADScopes={project.technicalCADScopes}
+      technicalWebDevScopes={project.technicalWebDevScopes}
+      toolUsedSoftwares={project.toolUsedSoftwares}
+      toolsUsedHardware={project.toolsUsedHardware}
+      materialsUsed={project.materialsUsed}
+    />
+    </div>
+    </div>
+    </section>
+
+    <section id="visuals">
+      <div class="inner" style="padding-top: 45px">
+      <VisualGrid gallery={project.projectImageGallery} />
+    </div>
+    </section>
+
+    <section id="more">
+      <div class="grid full-height center-center">
+        <div class="inner explore-more grid center">
+          <div class="explore-more-subheading">
+          <h2>{project.title}</h2>
+          <div>
+            <span>
+              {new Date(project.projectStartDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+              })}
+            </span>
+            <span>{project.projectSponsorType}</span>  
+            <span>{project.projectSponsor}</span>
+          </div>
+        </div>
+          <div class="explore-nav">
+            <div id="feedback" class="item">
+              <h4>Feedback</h4>
+              <span class="status">Coming soon</span>
+            </div>
+           <div id="liveDemo" class="item">
+              <h4>Live Demo</h4>
+              <span class="status">Coming soon</span>
+            </div>
+            <div id="printable" class="item">
+              <h4>Printable</h4>
+              <span class="status">Coming soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="point-to-section  light grid center">
+                <a href="#categoryRelated" title="Navigate to next section">More in {project.category}</a>
+              </div>
+      </div>
+
+      <div id="categoryRelated" class="related grid">
+      
+          <div class="carousel">
+            <div class="carousel-inner">
+              <div class="item">
+                <a href="#">
+                  <img src="https://placehold.co/400x600" alt="Sky Foundation" />
+                <div class="item-overlay">
+                  <span class="item-heading">Sky Foundation</span>
+                </div>
+                </a>
+                </div>
+                <div class="item">
+                <a href="#">
+                  <img src="https://placehold.co/400x600" alt="Sky Foundation" />
+                <div class="item-overlay">
+                  <span class="item-heading">Sky Foundation</span>
+                </div>
+                </a>
+                </div>
+                <div class="item">
+                <a href="#">
+                  <img src="https://placehold.co/400x600" alt="Sky Foundation" />
+                <div class="item-overlay">
+                  <span class="item-heading">Sky Foundation</span>
+                </div>
+                </a>
+                </div>
+
+   
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <nav class="crumbs grid wide">
+      <div class="inner">
+    <span>{project.category}</span>
+    <span>{project.title}</span>
+    </div>
+  </nav>
+  </div>
+</DefaultLayout>

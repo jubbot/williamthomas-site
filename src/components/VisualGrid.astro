@@ -1,0 +1,117 @@
+---
+interface GalleryItem {
+  url: string;
+  alt?: string;
+  caption?: string;
+  size?: 'small' | 'medium' | 'large';
+  thumbnailUrl?: string;
+}
+
+const { gallery }: { gallery: GalleryItem[] } = Astro.props;
+const galleryJSON = JSON.stringify(gallery); // keep raw
+---
+
+<div id="visualGrid" class="visual-grid show" data-visual-grid>
+  {gallery.map((item, index) => (
+    <div
+      class={`item ${item.size || 'medium'}`}
+      data-index={index}
+      tabindex="0"
+    >
+      <div class="thumbnail" data-thumbnail>
+        <img
+          src={item.thumbnailUrl || item.url}
+          alt={item.alt || ''}
+          loading="lazy"
+          onload="this.parentElement.classList.add('show')"
+        />
+        <div class="skeleton"></div>
+      </div>
+
+      <div class="overlay">
+        {item.alt && <span class="heading">{item.alt}</span>}
+        {item.caption && <span>{item.caption}</span>}
+      </div>
+    </div>
+  ))}
+</div>
+
+<div id="fullscreenImage" class="fullscreen-image hidden" data-fullscreen>
+  <button class="close-btn" aria-label="Close">&times;</button>
+  <img id="fullscreenImg" src="" alt="" class="fade-in" />
+  <div id="fullscreenCaption" class="caption"></div>
+
+  <button class="nav-btn prev" aria-label="Previous image"><span class="wt-arrow" /></button>
+  <button class="nav-btn next" aria-label="Next image"><span class="wt-arrow" /></button>
+</div>
+
+<!-- ✅ Inject JSON safely using set:html -->
+<script id="gallery-data" type="application/json" set:html={galleryJSON} />
+
+<script type="module">
+  const raw = document.getElementById('gallery-data').textContent;
+  const gallery = JSON.parse(raw);
+
+  const container = document.querySelector('[data-visual-grid]');
+  const fullscreen = document.querySelector('[data-fullscreen]');
+  const imgEl = document.getElementById('fullscreenImg');
+  const captionEl = document.getElementById('fullscreenCaption');
+  const closeBtn = fullscreen.querySelector('.close-btn');
+  const prevBtn = fullscreen.querySelector('.prev');
+  const nextBtn = fullscreen.querySelector('.next');
+
+  let currentIndex = null;
+
+  function showImage(index) {
+    const item = gallery[index];
+    if (!item) return;
+
+    imgEl.src = item.url;
+    imgEl.alt = item.alt || '';
+    captionEl.textContent = item.caption || '';
+    fullscreen.classList.remove('hidden');
+    fullscreen.classList.add('fade-in');
+    currentIndex = index;
+
+    prevBtn.style.display = index === 0 ? 'none' : 'flex';
+    nextBtn.style.display = index === gallery.length - 1 ? 'none' : 'flex';
+
+  }
+
+  container.querySelectorAll('.item').forEach((el) => {
+    el.addEventListener('click', () => {
+      const index = parseInt(el.dataset.index);
+      showImage(index);
+    });
+
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const index = parseInt(el.dataset.index);
+        showImage(index);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', () => fullscreen.classList.add('hidden'));
+  fullscreen.addEventListener('click', (e) => {
+    if (e.target === fullscreen) fullscreen.classList.add('hidden');
+  });
+
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) showImage(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex < gallery.length - 1) showImage(currentIndex + 1);
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (fullscreen.classList.contains('hidden')) return;
+    if (e.key === 'Escape') fullscreen.classList.add('hidden');
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === 'ArrowRight') nextBtn.click();
+  });
+</script>

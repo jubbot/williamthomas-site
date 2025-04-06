@@ -1,0 +1,118 @@
+.contact-form {
+   max-width:800px;
+   width:100%;
+    margin: 2rem auto;
+    display: grid;
+    gap: 1.5rem;
+  
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      label {
+        font-weight: 300;
+        text-transform:uppercase;
+        color:#444;
+        margin-bottom: 0.5rem;
+      }
+      input,
+      select,
+      textarea {
+        font-size: 1rem;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      textarea {
+        resize: vertical;
+      }
+    }
+  
+    .btn {
+      padding: 0.75rem 1.5rem;
+      background: #ff5d24;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    .btn:hover {
+      background: #e44c1f;
+    }
+  }
+  
+  .dropzone {
+    border: 2px dashed #aaa;
+    background:#FFF;
+    padding: 1rem;
+    text-align: center;
+    margin: 1rem 0;
+    cursor: pointer;
+  }
+  .dropzone.highlight {
+    background-color: #fef2ec;
+    border-color: #ff5d24;
+  }
+
+
+ // Contact Form 
+ .message {
+  position:absolute;
+  z-index: 1;
+  left:0;
+  right:15px;
+  top:0;
+  text-align: center;
+  opacity:1;   
+  p {
+    border-radius:5px;
+    color:#FFF;
+    padding:5px 10px;
+    margin:10px;
+    font-size:1.1rem;
+  }
+}
+.form-success p {background:rgb(9, 160, 9);}
+.form-error p {background:rgb(221, 0, 0);  }
+
+ .hidden { opacity:0; }
+
+ .dropzone.hover { border-color: var(--accent); background: #f0f0f0; }
+ .file-list {
+   margin-top: 1rem;
+   padding-left: 0;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+   list-style: none;
+ }
+ .chip {
+   display: inline-flex;
+   align-items: center;
+   background: #f2f2f2;
+   border-radius: 2rem;
+   padding: 0.25rem 0.75rem;
+   font-size: 0.9rem;
+   line-height: 1.5;
+   color: #333;
+ }
+ .chip .pdf-icon {
+   margin-right: 0.5rem;
+   color: crimson;
+ }
+ .chip .remove-btn {
+   margin-left: 0.5rem;
+   background: none;
+   border: none;
+   color: #888;
+   cursor: pointer;
+   font-size: 1.1rem;
+   line-height: 1;
+ }
+ .upload-progress {
+   font-style: italic;
+   font-size: 0.85rem;
+   color: gray;
+   padding: 0.25rem 0.5rem;
+ } 

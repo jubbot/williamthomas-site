@@ -1,0 +1,234 @@
+.project-slots {
+    .slot {
+        &:hover .slot-subtitle:after {
+            transform: skewX(-25deg);
+        }
+        .btn-cham {
+            font-size: 20pt;
+            padding: 0px 10px 0px 20px;
+        }
+    }
+
+    .btm-bar span {
+        font-size: 20pt;
+    }
+}
+
+// Click Animation
+.project-slots {
+    .chamfer-shadow {
+        transition: .3s;
+        position: relative;
+        display: flex;
+    }
+
+    .slot:hover .chamfer-shadow {}
+
+    .slot:active .chamfer-shadow {}
+}
+
+// CARDS - Project List
+.cards {
+    margin: 20px 10px;
+    width: calc(100% - 20px);
+    padding-bottom: 40px;
+    align-content: flex-start;
+}
+
+.card {
+    background: #333;
+    margin: 10px;
+    min-height: 350px;
+    position: relative;
+    transition: .2s linear;
+
+    &.single {
+        width: calc(33% - 20px);
+    }
+
+    &.double {
+        width: calc(33% * 2 - 20px);
+    }
+
+    .asset {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .cell {
+        padding: 20px;
+    }
+
+    .label {
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+        background: #F15E2D;
+        color: white;
+        right: 0;
+        padding: 10px 10px 10px 20px;
+        text-transform: uppercase;
+        font-size: 11pt;
+    }
+
+    .card-title {
+        font-size: 20pt;
+        line-height: 19pt;
+
+        strong {
+            display: block;
+        }
+    }
+
+    .card-caption {
+        padding: 5px 0;
+        margin: 0;
+    }
+
+    .browser {
+        height: 100%;
+        color: white;
+
+        h1, h2, h3, h4 {
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        p {
+            padding: 0 20px;
+            margin: 0;
+        }
+
+        a {
+            color: white;
+        }
+
+        .grid {
+            height: calc(100% - 15px);
+        }
+    }
+
+    .ctl {
+        background: white;
+        border: 1px solid #333;
+        display: flex;
+        padding: 0 5px;
+        height: 15px;
+
+        i {
+            border: 1px solid #333;
+            width: 5px;
+            height: 5px;
+            margin: 4px;
+            border-radius: 10px;
+            background: #FFF;
+            display: inline-block;
+        }
+    }
+}
+
+& {
+
+$border-color: #333;
+
+}
+
+.cham {
+    position: relative;
+    height: calc(100% - 2px);
+
+    &.orange {
+        &:before, &:hover {
+            background: #F15E2D;
+        }
+
+        &:hover {
+            &::before, .btn-cham, .stamp, .stamp:before, .stamp:after, .stamp span:after, .stamp span:before {
+                background: #F15E2D;
+                color: #FFF;
+            }
+
+            .stamp {
+                border-bottom-color: #F15E2D;
+            }
+        }
+    }
+
+    &.grey {
+        &:before, &:hover {
+            background: #333;
+        }
+
+        &:hover {
+            &::before, .btn-cham, .stamp, .stamp:before, .stamp:after, .stamp span:after, .stamp span:before {
+                background: #333;
+                color: #FFF;
+            }
+
+            .stamp {
+                border-bottom-color: #333;
+            }
+        }
+    }
+
+    &:before {
+        position: absolute;
+        top: 1px;
+        bottom: 1px;
+        left: 1px;
+        right: 1px;
+        content: '';
+        z-index: 0;
+        display: block;
+    }
+
+    &.border {
+        padding: 1px;
+        background: #333;
+        transition: .3s;
+
+        &:hover {
+            padding: 10px;
+            & {
+            height: calc(100% - 20px);
+            }
+
+            .btn-cham {
+                margin-bottom: -1px;
+                margin-right: -1px;
+            }
+        }
+    }
+
+    &:hover .item-category:after {
+        transform: skewX(-25deg);
+    }
+
+    .btm-bar {
+        background: #FFF;
+    }
+
+    .btn-cham {
+        background: #BCBCBC;
+        position: relative;
+        padding: 5px 10px 5px 20px;
+    }
+}
+
+.instagram-feed {
+    padding: 20px;
+    & {
+    height: calc(100% - 320px);
+    }
+
+    .item {
+        width: calc(33% - 20px);
+        background: #333;
+        margin: 10px;
+    }
+}
+
+
+
+
